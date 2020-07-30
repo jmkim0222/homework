@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <!-- Webpage Title -->
+    <title>피자 판매</title>
+
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+
+    <!-- 구글폰트 -->
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+    <style type="text/css">
+        * {
+            font-family: 'Do Hyeon', sans-serif;
+        }
+
+        .wrap {
+            width: 500px;
+            margin: 20px auto;
+        }
+
+        .img {
+            background-image: url('https://image.freepik.com/free-photo/delicious-fresh-pizza-served-wooden-table_127657-159.jpg');
+            background-size: cover;
+            background-position: center;
+            width: 500px;
+            height: 300px;
+
+        }
+
+        .info {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .price {
+            font-size: 20px;
+        }
+
+
+        .order {
+            text-align: center;
+        }
+
+        .rate {
+            font-size: 20px;
+            color: blue;
+        }
+
+        h1, .rate {
+            display: inline;
+        }
+
+    </style>
+
+    <script>
+
+        $(document).ready(function () {
+
+            $.ajax({
+                type: "GET",
+                url: "https://api.manana.kr/exchange/rate.json",
+                success: function (response) {
+                    let nowRate = response[1]['rate'];
+                    $('#exchange').text(nowRate);
+                }
+
+            })
+        })
+
+
+        function order() {
+            let name = $('#order-name').val();
+            let count = $('#order-count').val();
+            let address = $('#order-address').val();
+            let phone = $('#order-phone').val();
+
+            if (name == "") {
+                alert("주문자이름을 적어주세요!")
+                return
+            } else if (count == "") {
+                alert("수량을 적어주세요!")
+                return
+            } else if (address == "") {
+                alert("주소를 적어주세요!")
+                return
+            } else if (phone == "") {
+                alert("전화번호를 적어주세요!")
+                return
+            } else {
+                alert('주문이 완료되었습니다.');
+            }
+            return
+
+        }
+
+    </script>
+</head>
+<body>
+<div class="wrap">
+    <div class="img"></div>
+    <br class="info">
+    <h1>맛있는 피자를 팝니다 <span class="price">가격: 30,000원 / 1판</span></h1>
+    <p>맛있는 피자 드세요! 푸짐하고 다양한 맛! 둘이 먹다 하나가 죽어도 몰라요 &#127829;
+        <br>***판매메뉴: 페퍼로니,하와이안,포테이토,콤비네이션***
+    </p>
+    <h1> 주문하기
+        <div class="rate"> 달러-원 환율 : <span id="exchange">1234</span></div>
+    </h1>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text">주문자 이름</span>
+        </div>
+        <input type="text" class="form-control" id="order-name">
+    </div>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <label class="input-group-text">수량</label>
+        </div>
+        <select class="custom-select" id="order-count">
+            <option selected value=""> -- 수량을 선택하세요 --</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+        </select>
+    </div>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text">주소</span>
+        </div>
+        <input type="text" class="form-control" id="order-address">
+    </div>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text">전화번호</span>
+        </div>
+        <input type="text" class="form-control" id="order-phone">
+    </div>
+    <div class="order">
+        <button onclick="order()" type="button" class="btn btn-primary">주문하기</button>
+    </div>
+</div>
+
+</div>
+
+</body>
+</html>
